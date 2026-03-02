@@ -25,7 +25,7 @@ export default function HomeScreen() {
     filter === 'Tous' ? goals : goals.filter(g => g.status === filter);
 
   return (
-    <SafeAreaView style={styles.safe} edges={['top', 'left', 'right','bottom']}>
+    <SafeAreaView style={styles.safe} edges={['top', 'left', 'right']}>
       <KeyboardAvoidingView
         style={{ flex: 1 }}
         behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
