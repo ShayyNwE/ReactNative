@@ -1,32 +1,11 @@
 import React, { createContext, useContext, useState} from "react";
 import { createGoal } from "../utils/goalHelpers";
+import usePersistedGoals from "../hooks/usePersistedGoals";
 
 const GoalsContext = createContext();
 
 export function GoalsProvider({ children }) {
-    const [goals, setGoals] = useState([]);
-
-    const addGoal = (title) => {
-        const trimmed = title.trim();
-        if (!trimmed) return;
-        setGoals(prev => [...prev, createGoal(trimmed)]);
-    };
-
-    const updateStatus = (id, newStatus) => {
-        setGoals(prev =>
-            prev.map(g => g.id === id ? { ...g, status: newStatus} : g)
-        );
-    };
-
-    const updateTitle = (id, newTitle) => {
-        setGoals(prev =>
-        prev.map(g => g.id === id ? { ...g, title: newTitle } : g)
-        );
-    };
-
-    const deleteGoal = (id) => {
-        setGoals(prev => prev.filter(g => g.id !== id));
-    };
+    const { goals, addGoal, updateStatus, updateTitle, deleteGoal} = usePersistedGoals();
 
     return (
         <GoalsContext.Provider
