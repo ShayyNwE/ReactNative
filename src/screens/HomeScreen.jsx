@@ -5,15 +5,20 @@ import {
 } from 'react-native';
 import GoalItem from '../components/GoalItem';
 import { useGoals } from '../context/GoalsContext';
+import GoalFilter from '../components/GoalFilter';
 
 export default function HomeScreen() {
   const {goals, addGoal, updateStatus, updateTitle, deleteGoal} = useGoals()
   const [inputText, setInputText] = useState('')
+  const [filter, setFilter] = useState('Tous')
 
   const handleAdd = () => {
     addGoal(inputText)
     setInputText('')
   };
+
+  const filteredGoals =
+    filter === 'Tous' ? goals : goals.filter(g => g.status === filter);
 
   return (
     <SafeAreaView style={styles.safe}>
@@ -40,8 +45,14 @@ export default function HomeScreen() {
             </Pressable>
           </View>
 
+          <GoalFilter
+            options={['Tous', 'En cours', 'Terminé', 'Abandonné']}
+            selected={filter}
+            onChange={setFilter}
+          />
+
           <FlatList
-            data={goals}
+            data={filteredGoals}
             keyExtractor={(item) => item.id}
             renderItem={({ item }) => (
               <GoalItem
