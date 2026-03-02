@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import {
-  View, Text, TextInput, TouchableOpacity,
+  View, Text, TextInput, Pressable,
   FlatList, StyleSheet, SafeAreaView, KeyboardAvoidingView, Platform,
 } from 'react-native';
 import GoalItem from '../components/GoalItem';
-import { createGoal, STATUS } from '../utils/goalHelpers';
+import { createGoal} from '../utils/goalHelpers';
 
 export default function HomeScreen() {
   const [goals, setGoals] = useState([]);
@@ -53,9 +53,9 @@ export default function HomeScreen() {
               onSubmitEditing={handleAdd}
               returnKeyType="done"
             />
-            <TouchableOpacity style={styles.addBtn} onPress={handleAdd}>
+            <Pressable style={styles.addBtn} onPress={handleAdd}>
               <Text style={styles.addBtnText}>+</Text>
-            </TouchableOpacity>
+            </Pressable>
           </View>
 
           <FlatList

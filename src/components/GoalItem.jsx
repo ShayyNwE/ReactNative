@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import {
-  View, Text, TextInput, TouchableOpacity,
+  View, Text, TextInput, Pressable,
   Alert, StyleSheet,
 } from 'react-native';
 import { STATUS_COLORS, NEXT_STATUS } from '../utils/goalHelpers';
@@ -43,24 +43,24 @@ export default function GoalItem({ goal, onStatusChange, onUpdateTitle, onDelete
             autoFocus
           />
         ) : (
-          <TouchableOpacity onLongPress={() => setEditing(true)}>
+          <Pressable onLongPress={() => setEditing(true)}>
             <Text style={styles.title}>{goal.title}</Text>
             <Text style={[styles.status, { color }]}>{goal.status}</Text>
-          </TouchableOpacity>
+          </Pressable>
         )}
       </View>
 
       <View style={styles.actions}>
-        <TouchableOpacity
+        <Pressable
           style={[styles.btn, { borderColor: color }]}
           onPress={() => onStatusChange(goal.id, NEXT_STATUS[goal.status])}
         >
           <Text style={[styles.btnText, { color }]}>→</Text>
-        </TouchableOpacity>
+        </Pressable>
 
-        <TouchableOpacity style={styles.deleteBtn} onPress={handleDelete}>
+        <Pressable style={styles.deleteBtn} onPress={handleDelete}>
           <Text style={styles.deleteBtnText}>✕</Text>
-        </TouchableOpacity>
+        </Pressable>
       </View>
     </View>
   );
