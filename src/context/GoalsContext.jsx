@@ -1,5 +1,4 @@
-import React, { createContext, useContext, useState} from "react";
-import { createGoal } from "../utils/goalHelpers";
+import React, { createContext, useContext} from "react";
 import usePersistedGoals from "../hooks/usePersistedGoals";
 
 const GoalsContext = createContext();
