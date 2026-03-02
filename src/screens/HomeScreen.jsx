@@ -6,11 +6,14 @@ import {
 import GoalItem from '../components/GoalItem';
 import { useGoals } from '../context/GoalsContext';
 import GoalFilter from '../components/GoalFilter';
+import ProgressBar from '../components/ProgressBar';
 
 export default function HomeScreen() {
   const {goals, addGoal, updateStatus, updateTitle, deleteGoal} = useGoals()
   const [inputText, setInputText] = useState('')
   const [filter, setFilter] = useState('Tous')
+  const totalGoals = goals.length
+  const doneGoals = goals.filter(g => g.status === 'Terminé').length
 
   const handleAdd = () => {
     addGoal(inputText)
@@ -29,6 +32,7 @@ export default function HomeScreen() {
         <View style={styles.container}>
           <Text style={styles.appTitle}>🎯 LifeGoals</Text>
           <Text style={styles.sub}>{goals.length} objectif{goals.length !== 1 ? 's' : ''}</Text>
+          <ProgressBar done={doneGoals} total={totalGoals} color="#3B82F6" />
 
           <View style={styles.addRow}>
             <TextInput
