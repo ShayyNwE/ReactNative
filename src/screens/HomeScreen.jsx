@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 import {
   View, Text, TextInput, Pressable,
-  FlatList, StyleSheet, SafeAreaView, KeyboardAvoidingView, Platform,
+  FlatList, StyleSheet, KeyboardAvoidingView, Platform,
 } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
 import GoalItem from '../components/GoalItem';
 import { useGoals } from '../context/GoalsContext';
 import GoalFilter from '../components/GoalFilter';
@@ -24,7 +25,7 @@ export default function HomeScreen() {
     filter === 'Tous' ? goals : goals.filter(g => g.status === filter);
 
   return (
-    <SafeAreaView style={styles.safe}>
+    <SafeAreaView style={styles.safe} edges={['top', 'left', 'right','bottom']}>
       <KeyboardAvoidingView
         style={{ flex: 1 }}
         behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
