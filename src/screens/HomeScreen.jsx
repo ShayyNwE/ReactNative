@@ -4,33 +4,15 @@ import {
   FlatList, StyleSheet, SafeAreaView, KeyboardAvoidingView, Platform,
 } from 'react-native';
 import GoalItem from '../components/GoalItem';
-import { createGoal} from '../utils/goalHelpers';
+import { useGoals } from '../context/GoalsContext';
 
 export default function HomeScreen() {
-  const [goals, setGoals] = useState([]);
-  const [inputText, setInputText] = useState('');
+  const {goals, addGoal, updateStatus, updateTitle, deleteGoal} = useGoals()
+  const [inputText, setInputText] = useState('')
 
   const handleAdd = () => {
-    const trimmed = inputText.trim();
-    if (!trimmed) return;
-    setGoals(prev => [...prev, createGoal(trimmed)]);
-    setInputText('');
-  };
-
-  const handleStatusChange = (id, newStatus) => {
-    setGoals(prev =>
-      prev.map(g => g.id === id ? { ...g, status: newStatus } : g)
-    );
-  };
-
-  const handleUpdateTitle = (id, newTitle) => {
-    setGoals(prev =>
-      prev.map(g => g.id === id ? { ...g, title: newTitle } : g)
-    );
-  };
-
-  const handleDelete = (id) => {
-    setGoals(prev => prev.filter(g => g.id !== id));
+    addGoal(inputText)
+    setInputText('')
   };
 
   return (
@@ -64,9 +46,9 @@ export default function HomeScreen() {
             renderItem={({ item }) => (
               <GoalItem
                 goal={item}
-                onStatusChange={handleStatusChange}
-                onUpdateTitle={handleUpdateTitle}
-                onDelete={handleDelete}
+                onStatusChange={updateStatus}
+                onUpdateTitle={updateTitle}
+                onDelete={deleteGoal}
               />
             )}
             ListEmptyComponent={
