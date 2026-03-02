@@ -14,7 +14,7 @@ export function GoalsProvider({ children }) {
 
     const updateStatus = (id, newStatus) => {
         setGoals(prev =>
-            prev.map(g => g.id === id ? { ...g, title: newTitle} : g)
+            prev.map(g => g.id === id ? { ...g, status: newStatus} : g)
         );
     };
 
